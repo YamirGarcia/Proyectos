@@ -1,0 +1,101 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Helvetica Neuw", Herlvetica, Arial, sans-serif;
+
+}
+
+body{
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+h1{
+    text-align: center;
+}
+
+.drop-area{
+    border: 5px dashed #ddd;
+    height: 500px;
+    width: 700px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    /* background-color: red; */
+}
+
+/* #input-file{
+    height: 500px;
+    width: 700px;
+    background-color: #333;
+} */
+
+.drop-area.active{
+    background-color: #b8d4fe;
+    color: black;
+    border: 2px dashed #618ac9;
+
+}
+
+.drop-area h2{
+    font-size: 30px;
+    font-weight: 500;
+    color: #000;
+}
+
+.drop-area span{
+    font-size: 25px;
+    font-weight: 500;
+    color: #000;
+
+}
+
+.drop-area button{
+    padding: 10px 25px;
+    font-size: 20px;
+    border: 0;
+    outline: none;
+    background-color: #5256ad;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.file-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border: solid 1px #ddd;
+}
+
+#preview{
+    width: 80%;
+    margin-top: 10px;
+    margin: 0 auto;
+}
+
+.status-text{
+    padding: 0 10px;
+}
+
+.succes {
+    color: #52ad5a;
+
+}
+
+.failure{
+    color: #ff0000;
+}
+
+.todo{
+    width: 80%;
+    align-items: center;
+}

@@ -1,0 +1,192 @@
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: white; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 1rem;
+    /*padding-top: 60px; Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+ 
+/* The navigation menu links */
+.sidenav a{
+    padding: 8px 8px 8px 8px;
+    text-decoration: none;
+    color: #4f39A5;
+    font-size: 1rem;
+    display: block;
+    transition: 0.3s;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+ 
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover, .offcanvas a:focus{
+    color: #fff;
+    background-color: #fec459;
+    border-radius: 15px;
+    margin:20px 20px ;
+    /*border-left: 5px solid #F6754C;*/
+}
+ 
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px; 
+    font-size: 36px;
+    margin-left: 23px;
+}
+
+#cerrarboton{
+    border-left: transparent;
+  }
+
+#cerrarboton:hover{
+    background-color: transparent;
+    color: #4f39A5;
+  }
+ 
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+    overflow:hidden;
+    width:100%;
+}
+body {
+  overflow-x: hidden;
+  background-color: #f3f4f6;
+}
+ 
+/* Add a black background color to the top navigation */
+.topnav {
+    /*background-color: #F6754C*/
+    background-color: #f3f4f6;
+    overflow: hidden;
+}
+ 
+/* Style the links inside the navigation bar */
+.topnav a{
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+ 
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #4F39A5;
+    color: black;
+}
+ 
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+ 
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+ 
+a svg{
+  /* transition:all .5s ease; */
+ 
+  &:hover{
+    /* #transform:rotate(180deg); */
+  }
+}
+ 
+#ico{
+  display: none;
+  
+}
+ 
+.menu{
+  background: #000;
+  display: none;
+  padding: 5px;
+  width: 320px;
+  @include border-radius(5px);
+ 
+  /* #transition: all 0.5s ease; */
+ 
+  a{
+    display: block;
+    color: #4f39A5;
+    text-align: center;
+    padding: 10px 2px;
+    margin: 3px 0;
+    text-decoration: none;
+    background: #444;
+ 
+    &:nth-child(1){
+      margin-top: 0;
+      @include border-radius(3px 3px 0 0 );
+    }
+    &:nth-child(5){
+      margin-bottom: 0;
+      @include border-radius(0 0 3px 3px);
+    }
+ 
+    &:hover{
+      background: #555;
+      color: #4F39A5;
+    }
+  }
+}
+
+.frase{
+  width: 100%;
+  text-align: center;
+  background-color: white;
+  color: #111311;
+  /* border: 0px solid; */
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  font-size: 1rem;
+  padding: 1rem;
+  /* margin: auto 3rem; */
+  margin-bottom: 3rem;
+}
+
+.cerrar_sesion{
+  position: absolute;
+  bottom: 20px;
+}
+
+.filtros{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.filtros label{
+    margin-top: 15px;
+}
+
+
+.container button{
+    margin-top: 2rem;
+    margin-bottom: 3rem;    
+}
+
+.container label{
+  margin-top: 15px;
+}
+/* input[type="select"]{
+    width: 100%;
+}
+select{
+    display: inline-block;
+    width: 100%;
+} */

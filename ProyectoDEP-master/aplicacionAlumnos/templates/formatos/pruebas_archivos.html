@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> {% block title %} {% endblock %} </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/solicitudes.css'%}">
+        <link rel="stylesheet" href="{% static 'css/inicio_administracion.css'%}">
+        <link rel="stylesheet" href="{%static 'CSS/inputs.css'%}">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Round" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/b5d7e81e44.js" crossorigin="anonymous"></script>
+    </head>
+
+
+
+    <body>
+
+        {%include 'menu_alumnos.html'%}
+        <div id="main">
+            <div class="container">
+                <h1 class="frase" style="font-weight: 100;">SUBIR MULTIPLES ARCHIVOS A LA BASE DE DATOS</h1>
+                <form action="." method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <!-- style="width: 400px; height: 400px; -->
+                    <label for="numeroFolio">Numero de Folio</label>
+                    <input type="text" name="numeroFolio" id="numeroFolio">
+<!-- style="width: 500px; height: 500px; background-color: #333;" -->
+                    <div class="drop-area" id="drop-area" >
+                        <label for="archivos" >Selecciona tus archivos</label>
+                        <input type="file" multiple name="archivos" id="archivos" >
+                    </div>
+
+                    <input type="submit" class="btn btn-success">
+                    <!-- <div class="form__group">
+                        <label for="nombre">Nombre</label>
+                        <input type="number" class="form__field" placeholder="" name="nombre" id='nombre' required />
+                    </div> -->
+                </form>
+            </div>
+
+            <div class="todo">
+                {% block content %} {% endblock %}
+            </div>
+
+            <!-- <script>
+                const dropZone = document.getElementById('drop-area');
+                const input = document.getElementById('archivos');
+
+                dropZone.addEventListener('drop', e => {
+                    e.preventDefault();
+                    console.log('Soltó algo el kbron');
+                    input.files = e.dataTransfer.files;
+                    console.log(input.files);
+                })
+
+            </script> -->
+
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+
+</html>

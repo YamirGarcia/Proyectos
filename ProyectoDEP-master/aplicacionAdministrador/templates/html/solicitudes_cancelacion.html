@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> {% block title %} {% endblock %} </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/solicitudes.css'%}">
+        <link rel="stylesheet" href="{% static 'css/inicio_administracion.css'%}">
+        <link rel="stylesheet" href="{%static 'css/inputs.css'%}">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Round" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/b5d7e81e44.js" crossorigin="anonymous"></script>
+    </head>
+
+    {% if user.groups.all.0.name == 'Administrador' or user.groups.all.0.name == 'Administrador2' %}
+
+    <body>
+
+        {%include 'html/menu.html'%}
+        {% block content %}
+        <div id="main">
+            <div class="container">
+            </div>
+            <div class="container" style="width:75%;">
+                <h1 class="frase" style="font-size: 2rem; font-weight: 100;">SOLICITUDES DE CANCELACIÓN</h1>
+                <form action="." method="GET">
+                    <div class="filtros">
+                        <h3 style="border-radius: 15px; width: auto; background-color: #dee2e6; text-align: center;">Filtros</h3>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form__group" style="width: 100%;">
+                                    <label for="no_control">Número de Control</label>
+                                    <input type="text" name="no_control" id="no_control" class="form__field" pattern="[A-Za-z0-9]{8,9}" title="Maximo 9 caractéres alfanuméricos">
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form__group" style="width: 100%;">
+                                    <label for="folio">Folio</label>
+                                    <input type="text" name="folio" id="folio" class="form__field">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form__group" style="width: 100%;">
+                                    <label for="fechaCreacion">Fecha Inicio</label>
+                                    <input type="date" name="fechaCreacion" id="fechaCreacion" class="form__field">
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form__group" style="width: 100%;">
+                                    <label for="fechaCierre">Fecha Cierre</label>
+                                    <input type="date" name="fechaCierre" id="fechaCierre" class="form__field">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form__group" style="width: 100%;">
+                                    <label for="carrera">Carrera</label>
+                                    <select name="carrera" id="carrera" class="form__field">
+                                            <option value="" selected>---</option>
+                                            <option value="ISC">ISC</option>
+                                            <option value="ITICS">ITICS</option>
+                                            <option value="ELECTRICA">ELECTRICA</option>
+                                            <option value="INDUSTRIAL">INSDUSTRIAL</option>
+                                        </select>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form__group" style="width: 100%;">
+                                    <label for="tipoTramite">Tipo de Trámite</label>
+                                    <select name="tipoTramite" id="tipoTramite" class="form__field">
+                                    <option value="" selected>---</option>
+                                    <option value=1>Cambio de Carrera</option>
+                                    <option value=2>Comité Académico</option>
+                                    <option value=3>Movilidad Estudiantil</option>
+                                    <option value=4>Traslado</option>
+                                    <option value=5>Equivalencia</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-warning" style="width: 50%; margin: 2rem 25% 3rem 25%; border-radius: 15px;">CONSULTAR</button>
+                    </div>
+                </form>
+                <div class="contenido">
+                    <table class="table table-striped">
+                        <thead style="background-color: #4F39A5; color: white; text-align: center;">
+                            <tr>
+                                <th>Folio</th>
+                                <th>No. Control</th>
+                                <th>Carrera</th>
+                                <th>Estatus</th>
+                                <th>Fecha Creación</th>
+                                <th>Fecha Cierre</th>
+                                <th>Detalle</th>
+                            </tr>
+                        </thead>
+                        <tbody style="text-align: center;">
+                            {% for solicitud in array_solicitudes.all %}
+                            <tr>
+                                <td>{{ solicitud.numeroFolio}}</td>
+                                <td>{{ solicitud.numeroControl.numeroControl }}</td>
+                                <td>{{ solicitud.numeroControl.carrera }}</td>
+                                <td>{{ solicitud.estatusAdministrador }}</td>
+                                <td>{{ solicitud.fechaCreacion }}</td>
+                                <td>
+                                    {% if solicitud.fechaCierre %}
+                                            {{ solicitud.fechaCierre }}
+                                        {% else %}
+                                            <p>---</p>
+                                        {% endif%}
+                                </td>
+                                <td>
+                                    <a href="{% url 'detalle_solicitud_cancelacion' solicitud.id%}" style="text-decoration:none; color:white;" class="btn btn-primary">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                    </table>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    </body>
+    {%else%}
+    <style>
+        body {
+            background-color: #2b2d42;
+            align-items: center;
+        }
+    </style>
+    <div class="modal-dialog modal-dialog-centered" style="margin-top: 10%;">
+        <div class="modal-content" style="background-color: #e9ecef;">
+            <div class="modal-header">
+                <div class="row">
+                    <h5 class="modal-title" id="staticBackdropLabel">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle-exclamation" class="svg-inline--fa fa-circle-exclamation" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="1.5rem" width="1.5rem">
+                        <path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM232 152C232 138.8 242.8 128 256 128s24 10.75 24 24v128c0 13.25-10.75 24-24 24S232 293.3 232 280V152zM256 400c-17.36 0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 385.9 273.4 400 256 400z">
+                        </path>
+                    </svg> ¡Atención!</h5>
+                </div>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle-exclamation" class="svg-inline--fa fa-circle-exclamation" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="4rem" width="4rem" color="#ba181b">
+                        <path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM232 152C232 138.8 242.8 128 256 128s24 10.75 24 24v128c0 13.25-10.75 24-24 24S232 293.3 232 280V152zM256 400c-17.36 0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 385.9 273.4 400 256 400z">
+                        </path>
+                    </svg>
+                </div>
+                <br>
+                <h6 style="text-align: center;">No tiene autorización para visualizar este contenido</h6>
+                <a href="{% url 'logout' %}" style="width: 50%; margin: 2rem 25% 3rem 25%; border-radius: 15px;" class="btn btn-warning"> Salir</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+</html>

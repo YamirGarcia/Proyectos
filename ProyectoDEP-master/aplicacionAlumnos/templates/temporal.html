@@ -1,0 +1,11 @@
+estudiante = get_object_or_404(Estudiante, pk=id_alumno)
+      if request.method == 'POST':
+            formaAlumno = AlumnoForm(request.POST, instance=estudiante)
+            user = User.objects.get(username=estudiante.numeroControl)
+            user.set_password('psw')
+            user.save()
+            formaAlumno.save()
+      else:
+            formaAlumno = AlumnoForm(instance=estudiante)
+
+      return render(request, 'editar_alumno.html', {'formaAlumno':formaAlumno, 'admin':estudiante})

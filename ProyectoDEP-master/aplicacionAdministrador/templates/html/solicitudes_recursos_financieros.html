@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> {% block title %} {% endblock %} </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/solicitudes.css'%}">
+        <link rel="stylesheet" href="{% static 'css/inicio_administracion.css'%}">
+        <link rel="stylesheet" href="{%static 'css/inputs.css'%}">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Round" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/b5d7e81e44.js" crossorigin="anonymous"></script>
+        </head>
+
+        {% if user.groups.all.0.name == 'Recursos Financieros' %}
+
+        <body>
+        <div id="main">
+            <a href="{% url 'logout' %}" class="regresar" style="position: absolute; top: 0.12in; left: .1in; border-radius: 30px; background-color: #4f39A5; font-size: 1rem; padding: .3rem 1.2rem .5rem 1rem; color: white; text-decoration: none;">
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="right-from-bracket" class="svg-inline--fa fa-right-from-bracket" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="1rem" width="1rem">
+      <path fill="currentColor" 
+        d="M96 480h64C177.7 480 192 465.7 192 448S177.7 416 160 416H96c-17.67 0-32-14.33-32-32V128c0-17.67 14.33-32 32-32h64C177.7 96 192 81.67 192 64S177.7 32 160 32H96C42.98 32 0 74.98 0 128v256C0 437 42.98 480 96 480zM504.8 238.5l-144.1-136c-6.975-6.578-17.2-8.375-26-4.594c-8.803 3.797-14.51 12.47-14.51 22.05l-.0918 72l-128-.001c-17.69 0-32.02 14.33-32.02 32v64c0 17.67 14.34 32 32.02 32l128 .001l.0918 71.1c0 9.578 5.707 18.25 14.51 22.05c8.803 3.781 19.03 1.984 26-4.594l144.1-136C514.4 264.4 514.4 247.6 504.8 238.5z">
+      </path>
+    </svg> Cerrar Sesión</a>
+                <div class="container">
+                </div>
+                <div class="container" style="width:75%;">
+                    <div class="text-center">
+                        {% for message in messages %}
+                        <!-- <div class="container-md"> -->
+                            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                <strong>Exito!</strong> La petición de referencia del alumno {{message}} se ha eliminado correctamente.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="width: 10%; margin-top: 0;"></button>
+                            </div>
+                        <!-- </div> -->
+                        {% endfor %}
+                    <h1 class="frase" style="font-size: 2rem; font-weight: 100;">PETICIONES PARA REFERENCIAS</h1>
+
+                    <form action="." method="GET" style=" margin-bottom: 15px;">
+                        <div class="filtros">
+                            <h3 style="border-radius: 15px; width: auto; background-color: #dee2e6; text-align: center;">Filtros</h3>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form__group" style="width:100%;">
+                                        <label for="no_control">Número de Control</label>
+                                        <input type="text" class="form__field" placeholder="" name="no_control" id='no_control' pattern="[A-Za-z0-9]{1,9}" title="Máximo 9 caracteres alfanuméricos"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form__group" style="width:100%;">
+                                        <label for="nombres">Nombre</label>
+                                        <input type="text" name="nombres" id='nombres' class="form__field" placeholder="" pattern="[A-Za-z\s]+" title="Intente un formato valido (solo letras)"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form__group" style="width:100%;">
+                                        <label for="carrera">Carrera</label>
+                                        <select name="carrera" id="carrera" class="form__field">
+                                            <option value="" selected>---</option>
+                                            <option value="ISC">ISC</option>
+                                            <option value="ITICS">ITICS</option>
+                                            <option value="ELECTRICA">ELECTRICA</option>
+                                            <option value="INDUSTRIAL">INSDUSTRIAL</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="form__group" style="width:100%;">
+                                        <label for="tipoTramite">Tipo de tramite</label>
+                                        <select name="tipoTramite" id="tipoTramite" class="form__field">
+                                            <option value="" selected>---</option>
+                                            <option value="Cambio de Carrera">Cambio de Carrera</option>
+                                            <option value="Movilidad">Movilidad</option>
+                                            <option value="Equivalencia">Equivalencia</option>
+                                        </select>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-warning" style="width: 50%; margin: 2rem 25% 3rem 25%; border-radius: 15px;">CONSULTAR</button>
+                        </div>
+                    </form>
+                        <table class="table table-striped ">
+                            <thead style="background-color: #4F39A5; color: white; text-align: center; ">
+                                <tr>
+                                    <th>No. Control</th>
+                                    <th>Nombre</th>
+                                    <th>Carrera</th>
+                                    <th>Correo</th>
+                                    <th>Tipo de trámite</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody style="text-align: center; ">
+                                {% for solicitud in solicitudes.all %}
+                                <tr>
+                                    <td>{{ solicitud.numeroControl}}</td>
+                                    <td>{{ solicitud.nombres }}</td>
+                                    <td>{{ solicitud.carrera }}</td>
+                                    <td>{{ solicitud.correo }}</td>
+                                    <td>{{ solicitud.tipoTramite }}</td>
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <a href="{% url 'eliminacion_solicitud_recursos_financieros' solicitud.id%}" style="text-decoration:none; color:white; width:30%;" class="btn btn-danger ">
+                                            <i class="far fa-window-close"></i>
+                                         </a>
+                                    </td>
+
+                        {% endfor %}
+                        </tr>
+                        </table>
+                        </table>
+
+
+                    </div>
+                </div>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js " integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8 " crossorigin="anonymous "></script>
+                
+        </body>
+        {%else%}
+        <style>
+            body {
+                background-color: #2b2d42;
+                align-items: center;
+            }
+        </style>
+        <div class="modal-dialog modal-dialog-centered " style="margin-top: 10%; ">
+            <div class="modal-content " style="background-color: #e9ecef; ">
+                <div class="modal-header ">
+                    <div class="row ">
+                        <h5 class="modal-title " id="staticBackdropLabel ">
+                            <svg aria-hidden="true " focusable="false " data-prefix="fas " data-icon="circle-exclamation " class="svg-inline--fa fa-circle-exclamation " role="img " xmlns="http://www.w3.org/2000/svg " viewBox="0 0 512 512 " height="1.5rem
+                        " width="1.5rem ">
+                            <path fill="currentColor " d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM232 152C232 138.8 242.8 128 256 128s24 10.75 24 24v128c0 13.25-10.75 24-24 24S232 293.3 232 280V152zM256 400c-17.36
+                        0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 385.9 273.4 400 256 400z ">
+                            </path>
+                        </svg> ¡Atención!</h5>
+                    </div>
+    
+                </div>
+                <div class="modal-body ">
+                    <div class="row ">
+                        <svg aria-hidden="true " focusable="false " data-prefix="fas " data-icon="circle-exclamation " class="svg-inline--fa fa-circle-exclamation " role="img " xmlns="http://www.w3.org/2000/svg " viewBox="0 0 512 512 " height="4rem
+                        " width="4rem " color="#ba181b ">
+                            <path fill="currentColor " d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM232 152C232 138.8 242.8 128 256 128s24 10.75 24 24v128c0 13.25-10.75 24-24 24S232 293.3 232 280V152zM256 400c-17.36
+                        0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 385.9 273.4 400 256 400z ">
+                            </path>
+                        </svg>
+                    </div>
+                    <br>
+                    <h6 style="text-align: center; ">No tiene autorización para visualizar este contenido</h6>
+                    <a href="{% url 'logout' %} " style="width: 50%; margin: 2rem 25% 3rem 25%; border-radius: 15px; " class="btn btn-warning "> Salir</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+</html>

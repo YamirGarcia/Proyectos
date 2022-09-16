@@ -1,0 +1,35 @@
+[X]petición de cancelación
+[X]animaciones login
+[X]boton regresar en las plantillas
+[X]estilo al subir archivos
+[X]modal registrar alumno
+[X]validar correo
+[X]agregar mensaje de nel pastel en todas las pestañas
+[X]modificar url menu alumno
+[X]funcion input
+[X]Envío de correos
+[X]mis solicitudes alumno
+[x]recuperación de contraseñas
+[x]modal para pedir referencia
+
+[]pdf movilidad estudiantil
+[]Formulario de convalidación(verse)
+
+
+
+yamir
+[creo que ya] Validar correo
+[creo que ya] Try catch en caso de que se regriste varios administradores con un mismo nombre
+[x]Ortografia del programa
+[x]Eliminar campo correo en "recuperar contraseña"
+
+vladi
+[]Alerta envio de peticion cancelación
+[]Admin puede adjuntar archivo
+[]Notificaciones a cualquier accion de CRUD
+
+
+Farid
+[]validaciones en campos
+
+

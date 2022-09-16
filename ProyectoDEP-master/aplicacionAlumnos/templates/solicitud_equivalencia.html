@@ -1,0 +1,225 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/inicio_administracion.css'%}">
+    </head>
+
+    {% if user.groups.all.0.name == 'Alumno' %}
+
+    <body>
+
+        {%include 'menu_alumnos.html'%}
+        <div id="main">
+            <!-- Add all your websites page content here  -->
+            <div class="container">
+                <h1 class="frase" style="font-weight: 100;">SOLICITUDES DE RESOLUCION DE EQUIVALENCIA DE ESTUDIOS</h1>
+            </div>
+            <div class="container" style="margin-top: 20px;">
+                <form action="{% url 'pdf_equivalencia' %}" method="post">
+                    {% csrf_token %}
+                    <div class="filtros">
+                        <h3>Llenar Formulario</h3>
+                        <div class="row">
+                            <div class="col">
+                                <label for="primerapellido">Primer Apellido</label>
+                                <input type="text" name="primerapellido" id="primerapellido" class="form-control" required>
+                            </div>
+
+                            <div class="col">
+                                <label for="segundoapellido">Segundo Apellido</label>
+                                <input type="text" name="segundoapellido" id="segundoapellido" class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <label for="nombre"> Nombre o Nombres</label>
+                                <input type="text" name="nombre" id="nombre" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="calle">Calle</label>
+                                <input type="text" name="calle" id="calle" class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <label for="numero">Número</label>
+                                <input type="text" name="numero" id="numero" class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <label for="col">Colonia</label>
+                                <input type="text" name="col" id="col" class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <label for="cp">Código Postal</label>
+                                <input type="text" name="cp" id="cp" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="municipio">Municipio</label>
+                                <input type="text" name="municipio" id="municipio" , class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <label for="ciudad">Ciudad</label>
+                                <input type="text" name="ciudad" id="ciudad" class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <label for="estado">Estado</label>
+                                <input type="text" name="estado" id="estado" class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <label for="tel">Teléfono</label>
+                                <input type="text" name="tel" id="tel" class="form-control" required>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="nacio">Nacionalidad</label>
+                                <input type="text" name="nacio" id="nacio" class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <label for="sexo">Sexo</label>
+                                <select name="sexo" id="sexo" class="form-select">
+                                    <option value="" selected>---</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Femenino</option>
+                                  </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="inst">Institución en que realiza(ó) los estudios</label>
+                                <input type="text" name="inst" id="inst" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="nivel">Nivel</label>
+                                <input type="text" name="nivel" id="nivel" class="form-control" placeholder="Licenciatura o TSU" required>
+                            </div>
+                            <div class="col">
+                                <label for="area">Área</label>
+                                <input type="text" name="area" id="area" class="form-control" placeholder="Ingeniería, Económico-Administrativas, etc." required>
+                            </div>
+                            <div class="col">
+                                <label for="estadorep">Estado de la República</label>
+                                <input type="text" name="estadorep" id="estadorep" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="carrera">Carrera</label>
+                                <input type="text" name="carrera" id="carrera" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="plan">Clave Plan estudios</label>
+                                <input type="text" name="plan" id="plan" class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <label for="fechai">de fecha</label>
+                                <input type="date" name="fechai" id="fechai" class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <label for="fechaf">a fecha</label>
+                                <input type="date" name="fechaf" id="fechaf" class="form-control" required>
+                            </div>
+                        </div>
+                        <h3>Deseo ingresar al:</h3>
+                        <div class="row">
+                            <div class="col">
+                                <label for="instituto">Instituto</label>
+                                <input type="text" name="instituto" id="instituto" class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <label for="edorep">Estado de la República</label>
+                                <input type="text" name="edorep" id="edorep" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="tipocar">Tipo Carrera</label>
+                                <select name="tipocar" id="tipocar" class="form-select" required>
+                                    <option value="" selected>---</option>
+                                    <option value="Ingeniería">Ingeniería</option>
+                                    <option value="Licenciatura">Licenciatura</option>
+                                  </select>
+                            </div>
+                            <div class="col">
+                                <label for="en">En</label>
+                                <input type="text" name="carreras" id="carreras" class="form-control" placeholder="Carrera(Sistemas computacionales, Administración, etc.)" required>
+                            </div>
+                            <div class="col">
+                                <label for="planes">Plan de Estudios</label>
+                                <input type="text" name="planes" id="planes" class="form-control" required>
+                            </div>
+                            <h3>Datos de Contacto:</h3>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="cel">Celular</label>
+                                    <input type="text" name="cel" id="cel" class="form-control" required>
+                                </div>
+                                <div class="col">
+                                    <label for="correo">Correo</label>
+                                    <input type="email" name="correo" id="correo" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-warning">Generar</button>
+                        <a href="{% url 'pdf_equivalencia' %}" target="_blank">Crear Formato</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+
+        <div class="todo">
+            {% block content %} {% endblock %}
+        </div>
+
+
+
+
+    </body>
+    {%else%}
+    <style>
+        body {
+            background-color: #2b2d42;
+            align-items: center;
+        }
+    </style>
+    <div class="modal-dialog modal-dialog-centered" style="margin-top: 10%;">
+        <div class="modal-content" style="background-color: #e9ecef;">
+            <div class="modal-header">
+                <div class="row">
+                    <h5 class="modal-title" id="staticBackdropLabel">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle-exclamation" class="svg-inline--fa fa-circle-exclamation" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="1.5rem" width="1.5rem">
+                        <path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM232 152C232 138.8 242.8 128 256 128s24 10.75 24 24v128c0 13.25-10.75 24-24 24S232 293.3 232 280V152zM256 400c-17.36 0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 385.9 273.4 400 256 400z">
+                        </path>
+                    </svg> ¡Atención!</h5>
+                </div>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle-exclamation" class="svg-inline--fa fa-circle-exclamation" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="4rem" width="4rem" color="#ba181b">
+                        <path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM232 152C232 138.8 242.8 128 256 128s24 10.75 24 24v128c0 13.25-10.75 24-24 24S232 293.3 232 280V152zM256 400c-17.36 0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 385.9 273.4 400 256 400z">
+                        </path>
+                    </svg>
+                </div>
+                <br>
+                <h6 style="text-align: center;">No tiene autorización para visualizar este contenido</h6>
+                <a href="{% url 'logout' %}" style="width: 50%; margin: 2rem 25% 3rem 25%; border-radius: 15px;" class="btn btn-warning"> Salir</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+
+</html>

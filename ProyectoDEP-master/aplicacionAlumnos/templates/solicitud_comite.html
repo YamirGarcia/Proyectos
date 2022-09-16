@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> {% block title %} {% endblock %} </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/solicitudes.css'%}">
+        <link rel="stylesheet" href="{% static 'css/inicio_administracion.css'%}">
+        <link rel="stylesheet" href="{%static 'css/inputs.css'%}">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Round" rel="stylesheet">
+        <link rel="stylesheet" href="{%static 'css/input.css'%}">
+        <script src="https://kit.fontawesome.com/b5d7e81e44.js" crossorigin="anonymous"></script>
+        </he ad>
+
+        {% if user.groups.all.0.name == 'Alumno' %}
+
+        <body>
+
+            {%include 'menu_alumnos.html'%} {% block content %}
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto odit sapiente dicta commodi sequi eos nam tempora, ad ipsa cupiditate autem voluptatibus consequuntur dignissimos? Accusamus quas nemo beatae minus veniam!</p>
+            <div id="main">
+                <div class="container" style="width:75%;">
+                    <h1 class="frase" style="font-weight: 100;">SOLICITUD AL COMIÍTE ACADÉMICO</h1>
+                </div>
+                <div class="container">
+                    <form action="{%url 'pdf_comite'%}" method="post" target="_blank">
+                        {% csrf_token %}
+                        <h3 style="border-radius: 15px; width: auto; background-color: #dee2e6; text-align: center;">LLenar Formulario</h3>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form__group" style="width: 100%;">
+                                    <label for="asunto">Asunto: (Máx. 30 caracteres)</label>
+                                    <input type="text" id="asunto" name="asunto" class="form__field" placeholder="Expresar de manera breve el motivo de la solicitud" maxlength="30" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form__group" style="width: 100%;">
+                                    <label for="nombre">Nombre o Nombres:</label>
+                                    <input type="text" name="nombre" id="nombre" class="form__field" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form__group" style="width: 100%;">
+                                    <label for="papellido">Primer Apellido:</label>
+                                    <input type="text" name="papellido" id="papelllido" class="form__field" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form__group" style="width: 100%;">
+                                    <label for="sapellido">Segundo Apellido:</label>
+                                    <input type="text" name="sapellido" id="sapellido" class="form__field" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form__group" style="width: 100%;">
+                                    <label for="carrera">Carrera:</label>
+                                    <input type="text" name="carrera" id="carrera" class="form__field" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form__group" style="width: 100%;">
+                                    <label for="semestre">Semestre:</label>
+                                    <input type="number" name="semestre" id="semestre" class="form__field" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form__group" style="width: 100%;">
+                                    <label for="ncontrol">No. Control:</label>
+                                    <input type="text" name="ncontrol" id="ncontrol" class="form__field" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form__group" style="width: 100%;">
+                                    <label for="solicitud">Solicito de la manera más atenta: (Máx. 250 caracteres)</label>
+                                    <textarea name="solicitud" id="solicitud" cols="30" rows="3" maxlength="250" class="form__field" style="background-color: #ECECEC;" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 style="border-radius: 15px; width: auto; background-color: #dee2e6; text-align: center; margin-top: 25px;">Por los motivos:</h3>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form__group" style="width: 100%;">
+                                    <label for="macademico">Motivos Académicos: (Máx. 230 caracteres)</label>
+                                    <textarea name="macademicos" id="macademicos" cols="30" rows="3" maxlength="230" class="form__field" style="background-color: #ECECEC;" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form__group" style="width: 100%;">
+                                    <label for="mpersonal">Motivos Personales: (Máx. 230 caracteres)</label>
+                                    <textarea name="mpersonal" id="mpersonal" cols="30" rows="3" class="form__field" maxlength="230" style="background-color: #ECECEC;" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form__group" style="width: 100%;">
+                                    <label for="motros">Otros: (Máx. 100 caracteres)</label>
+                                    <textarea name="motros" id="motros" cols="30" rows="3" maxlength="100" class="form__field" style="background-color: #ECECEC;" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 style="border-radius: 15px; width: auto; background-color: #dee2e6; text-align: center; margin-top: 25px;">Datos de contacto:</h3>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form__group" style="width: 100%;">
+                                    <label for="tel">Teléfono: </label>
+                                    <input type="text" name="tel" id="tel" class="form__field" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form__group" style="width: 100%">
+                                    <label for="correo">Correo:</label>
+                                    <input type="mail" name="correo" id="correo" class="form__field" required>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-warning" style="width: 50%; margin: 2rem 25% 3rem 25%; border-radius: 15px;">Generar</button>
+                    </form>
+                    <!-- <input type="file " name="archivo " aria-label="archivo "> -->
+                </div>
+            </div>
+
+
+
+            {% endblock %}
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js " integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8 " crossorigin="anonymous "></script>
+
+        </body>
+        {%else%}
+        <h1>Nel pastel</h1>
+        {% endif %}
+
+</html>

@@ -1,0 +1,186 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> {% block title %} {% endblock %} </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/solicitudes.css'%}">
+        <link rel="stylesheet" href="{% static 'css/inicio_administracion.css'%}">
+        <link rel="stylesheet" href="{%static 'css/inputs.css'%}">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Round" rel="stylesheet">
+        <link rel="stylesheet" href="{%static 'css/input.css'%}">
+        <link rel="stylesheet" href="{% static 'CSS/drag_drop.css' %}">
+        <script src="https://kit.fontawesome.com/b5d7e81e44.js" crossorigin="anonymous"></script>
+    </head>
+
+
+    <body>
+        {% if user.groups.all.0.name == 'Alumno' %} {%include 'menu_alumnos.html'%}
+
+            {% block content %}
+        <div id="main">
+            <div class="container" style="width:75%;">
+                <h1 class="frase" style="font-weight: 100;">MIS DATOS</h1>
+                <form action="" method="POST">
+                    {% csrf_token%}
+                <div class="row">
+                    <div class="col">
+                        <div class="form__group" style="width: 100%;">
+                            <label for="nombreAdministrador">Nombre o Nombres:</label> {{formaAlumno.nombres}}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form__group" style="width: 100%;">
+                            <label for="primerApellido">Primer Apellido</label> {{formaAlumno.apellidoPaterno}}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form__group" style="width: 100%;">
+                            <label for="segundoApellido">Segundo Apellido</label> {{formaAlumno.apellidoMaterno}}
+                        </div>
+                    </div>
+                    <div style="display: none;">
+                        <label for="c">contraseña</label>
+                    {{formaAlumno.contraseña}}
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form__group" style="width: 100%;">
+                            <label for="carrera">Carrera</label> {{formaAlumno.carrera}}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form__group" style="width: 100%;">
+                            <label for="nombreUsuario">Número de Control</label> {{formaAlumno.numeroControl}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col">
+                        <div class="form__group" style="width: 100%;">
+                            <label for="correoAdministrador">Correo Institucional</label>
+                            {{formaAlumno.correo}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" data-bs-toggle="modal" class="btn btn-warning" data-bs-target="#cambiarPsw" style="width: 50%; margin: 2rem 25% 3rem 25%; border-radius: 15px;">Cambiar Contraseña</button>
+                    </div>
+                    <div class="col">
+                        <button onclick="habilitar()" type="submit" style="width: 50%; margin: 2rem 25% 3rem 25%; padding: .3rem; border-radius: 15px; background-color: #4F39A5; color: white;">Guardar Cambios</button>
+                    </div>
+                </div>
+            </form>
+            </div>
+            
+            
+        </div>
+
+
+
+        <div class="modal fade" id="cambiarPsw" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">¡Cambio de contraseña!</h5>
+                        <button type="button" class="btn-close" style="width: 10%;" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{% url 'cambiar_psw' user.username%}" method="post">
+                            {% csrf_token%}
+                            Está a punto de cambiar su contraseña:<br>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="">Nueva Contraseña:</label>
+                                    <input type="text" class="form-control" id="psw" name="psw">
+                                </div>                            
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width:25%; margin-top: 0px; margin-bottom: 1rem;">Cerrar</button>
+                                <button type="submit" style="width:25%; text-decoration:none; color:white; margin-top: 0px; margin-bottom: 1rem;" class="btn btn-danger">
+                                    Confirmar
+                                </button>
+                            </div>
+                        </form>                        
+                    </div>                    
+                </div>
+            </div>
+        </div>
+
+       
+
+
+
+
+
+        {% endblock %}
+        <script src="{% static 'JS/drag_drop.js' %}"></script>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js " integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8 " crossorigin="anonymous "></script>
+        <script>
+            $(document).ready(function() {   //$(document).ready se ejecuta cuando carga la pagina
+                $("#id_contraseña").val("1");
+                document.getElementById('id_correo').style.background = "#e5e5e5"
+                var correo = document.getElementById('id_correo');
+                document.getElementById('id_numeroControl').style.background = "#e5e5e5"
+                var ncontrol = document.getElementById('id_numeroControl');
+                ncontrol.disabled = true;
+                correo.disabled = true;                
+            });
+            function habilitar(){
+                document.getElementById('id_correo').style.background = "#e5e5e5"
+                var correo = document.getElementById('id_correo');
+                document.getElementById('id_numeroControl').style.background = "#e5e5e5"
+                var ncontrol = document.getElementById('id_numeroControl');
+                ncontrol.disabled = false;
+                correo.disabled = false; 
+            }
+        </script>
+        <script>
+
+        </script>
+    </body>
+    {%else%}
+    <style>
+        body {
+            background-color: #2b2d42;
+            align-items: center;
+        }
+    </style>
+    <div class="modal-dialog modal-dialog-centered" style="margin-top: 10%;">
+        <div class="modal-content" style="background-color: #e9ecef;">
+            <div class="modal-header">
+                <div class="row">
+                    <h5 class="modal-title" id="staticBackdropLabel">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle-exclamation" class="svg-inline--fa fa-circle-exclamation" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="1.5rem" width="1.5rem">
+                        <path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM232 152C232 138.8 242.8 128 256 128s24 10.75 24 24v128c0 13.25-10.75 24-24 24S232 293.3 232 280V152zM256 400c-17.36 0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 385.9 273.4 400 256 400z">
+                        </path>
+                    </svg> ¡Atención!</h5>
+                </div>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle-exclamation" class="svg-inline--fa fa-circle-exclamation" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="4rem" width="4rem" color="#ba181b">
+                        <path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM232 152C232 138.8 242.8 128 256 128s24 10.75 24 24v128c0 13.25-10.75 24-24 24S232 293.3 232 280V152zM256 400c-17.36 0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 385.9 273.4 400 256 400z">
+                        </path>
+                    </svg>
+                </div>
+                <br>
+                <h6 style="text-align: center;">No tiene autorización para visualizar este contenido</h6>
+                <a href="{% url 'logout' %}" style="width: 50%; margin: 2rem 25% 3rem 25%; border-radius: 15px;" class="btn btn-warning"> Salir</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+</html>
